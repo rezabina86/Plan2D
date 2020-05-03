@@ -35,6 +35,8 @@ class ProjectPlanViewController: UIViewController {
     private var imageViewLeadingConstraint: NSLayoutConstraint!
     private var imageViewTrailingConstraint: NSLayoutConstraint!
     
+    private var isProjectLoaded: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -42,20 +44,13 @@ class ProjectPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        guard !isProjectLoaded else { return }
+        showWaiting()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showWaiting()
-        if let project = project {
-            project.draw { image in
-                DispatchQueue.main.async { [weak self] in
-                    self?.hideWaiting()
-                    self?.imageView.image = image
-                }
-            }
-        }
+        loadProject()
     }
     
     override func viewWillLayoutSubviews() {
@@ -95,6 +90,17 @@ class ProjectPlanViewController: UIViewController {
         imageViewLeadingConstraint.isActive = true
         imageViewTrailingConstraint.isActive = true
         
+    }
+    
+    private func loadProject() {
+        guard let project = project, !isProjectLoaded else { return }
+        project.draw { image in
+            DispatchQueue.main.async { [weak self] in
+                self?.hideWaiting()
+                self?.imageView.image = image
+                self?.isProjectLoaded = true
+            }
+        }
     }
     
 }
