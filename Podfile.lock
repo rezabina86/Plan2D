@@ -1,0 +1,16 @@
+PODS:
+  - SwiftOverlays (5.0.1)
+
+DEPENDENCIES:
+  - SwiftOverlays
+
+SPEC REPOS:
+  trunk:
+    - SwiftOverlays
+
+SPEC CHECKSUMS:
+  SwiftOverlays: ab459ea9194b0e96aaccaa00e9ead1bf6d46eef1
+
+PODFILE CHECKSUM: aefdb63e4352a193188be90cf7fcf592ecef65d7
+
+COCOAPODS: 1.9.1
